@@ -2,10 +2,10 @@ name: DNSHE Daily Checkin
 
 on:
   schedule:
-    # GitHub Actions 的 cron 使用 UTC 时间。
-    # 北京时间每天 08:00 = UTC 00:00。
+    # GitHub Actions cron 使用 UTC。
+    # 北京时间每天 08:00 = UTC 00:00
     - cron: "0 0 * * *"
-  workflow_dispatch:   # 支持手动触发测试
+  workflow_dispatch:   # 支持在 Actions 页面手动触发测试
 
 jobs:
   checkin:
@@ -31,8 +31,7 @@ jobs:
           TG_API_ID: ${{ secrets.TG_API_ID }}
           TG_API_HASH: ${{ secrets.TG_API_HASH }}
           TG_SESSION_STRING: ${{ secrets.TG_SESSION_STRING }}
-          # 可选：如果 Telegram 访问受限，再配置 PROXY_SERVER
+          DNSHE_GROUP_ID: ${{ secrets.DNSHE_GROUP_ID }}
+          # 如果需要代理，在 Secrets 中配置 PROXY_SERVER 后取消下面注释
           # PROXY_SERVER: ${{ secrets.PROXY_SERVER }}
-          # 可选：如果默认 @HiaiFeng 不可用，在 Secrets 中覆盖群组 ID
-          # DNSHE_GROUP: ${{ secrets.DNSHE_GROUP }}
         run: python checkin.py
